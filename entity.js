@@ -3,24 +3,28 @@ define(['backbone','sockets'], function(Backbone,Sockets) {
     var Entity = Backbone.Model.extend({
         socket: null,
         type: null,
-        initialize: function(attr,opt) {
+        initialize: function(attr, opt) {
             var type = opt.type || this.type;
             if (this.has('id'))
                 this.socket = Sockets[type].at(this.get('id'));
             this.on({
-                'change': this.sync,
-                'destroy': this.destroy
+                change: this.sync.bind(this),
+                destroy: this.destroy.bind(this)
             });
             this.socket.on({
-                'change': this.change,
-                'destroy': this.destroy
+                change: this.change.bind(this),
+                destroy: this.destroy.bind(this)
             });
         },
-        sync: function(data) {
-            if (data.hasOwnProperty('id'))
+        sync: function() {
+            var data = this.changedAttributes();
+            if (data.hasOwnProperty('id') || this._syncing) {
+                this._syncing = false;
                 return false;
-            this.socket.send('change',data);
-            return true;
+            } else {
+                this.socket.send('change',data);
+                return true;
+            }
         },
         destroy: function() {
             // sholud be sent only when local
@@ -28,8 +32,11 @@ define(['backbone','sockets'], function(Backbone,Sockets) {
             this.socket.off();
         },
         change: function(data) {
+            // Should prevent a sync
+            this._syncing = true;
             this.set(data);
-        }
+        },
+        _syncing: false
     });
 
     return Entity;
