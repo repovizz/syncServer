@@ -1,10 +1,11 @@
 {
-	"name": "LabStream Framework",
+	"name": "LabStream",
 	"version": "0.0.1",
 	"repository": {
 		"type": "git",
 		"url": "git@atg.lbl.gov:repovizz/framework.git"
 	},
+	"private": true,
 	"dependencies": {
 		"express": "*",
 		"underscore": "*",
@@ -13,6 +14,10 @@
 	},
 	"devDependencies": {
 		"grunt": "*",
-		"grunt-contrib-requirejs": "*"
+		"grunt-contrib-requirejs": "*",
+		"grunt-contrib-qunit": "*",
+		"grunt-amd-doc": "*",
+		"grunt-bower-requirejs": "*",
+		"grunt-amd-test": "*"
     }
 }

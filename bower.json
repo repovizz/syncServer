@@ -1,13 +1,13 @@
 {
-  "name": "LabStream Framework",
+  "name": "LabStream",
   "version": "0.0.1",
   "dependencies": {
-    "backbone-amd": "*",
-    "underscore-amd": "*",
-    "socket.io": "*",
-    "jquery": "*",
-    "gridster": "*",
-    "requirejs": "*"
+    "backbone-amd": "latest",
+    "underscore-amd": "latest",
+    "socket.io": "latest",
+    "jquery": "latest",
+    "gridster": "latest",
+    "requirejs": "latest"
   },
   "devDependencies": {
 
