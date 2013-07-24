@@ -1,0 +1,18 @@
+{
+	"name": "LabStream Framework",
+	"version": "0.0.1",
+	"repository": {
+		"type": "git",
+		"url": "git@atg.lbl.gov:repovizz/framework.git"
+	},
+	"dependencies": {
+		"express": "*",
+		"underscore": "*",
+		"socket.io": "*",
+		"redis": "*"
+	},
+	"devDependencies": {
+		"grunt": "*",
+		"grunt-contrib-requirejs": "*"
+    }
+}
