@@ -1,23 +1,25 @@
 {
-	"name": "LabStream",
-	"version": "0.0.1",
-	"repository": {
-		"type": "git",
-		"url": "git@atg.lbl.gov:repovizz/framework.git"
-	},
-	"private": true,
-	"dependencies": {
-		"express": "*",
-		"underscore": "*",
-		"socket.io": "*",
-		"redis": "*"
-	},
-	"devDependencies": {
-		"grunt": "*",
-		"grunt-contrib-requirejs": "*",
-		"grunt-contrib-qunit": "*",
-		"grunt-amd-doc": "*",
-		"grunt-bower-requirejs": "*",
-		"grunt-amd-test": "*"
-    }
+  "name": "labstream",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git@atg.lbl.gov:repovizz/framework.git"
+  },
+  "private": true,
+  "dependencies": {
+    "express": "~3.3.4",
+    "underscore": "~1.5.1",
+    "socket.io": "~0.9.16",
+    "redis": "~0.8.4"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-requirejs": "~0.4.1",
+    "grunt-contrib-qunit": "~0.2.2",
+    "grunt-amd-doc": "~0.4.3",
+    "grunt-bower-requirejs": "~0.6.0",
+    "grunt-amd-test": "~0.4.6",
+    "matchdep": "~0.1.2",
+    "async": "~0.2.9"
+  }
 }

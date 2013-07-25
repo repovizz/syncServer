@@ -1,0 +1,33 @@
+{
+	"client": {
+		"production": [
+			"backbone-amd",
+			"underscore-amd",
+			"socket.io",
+			"jquery",
+			"gridster",
+			"requirejs",
+			"requirejs-text",
+			"requirejs-plugins"
+		],
+		"development": []
+	},
+	"server": {
+		"production": [
+			"express",
+			"underscore",
+			"socket.io",
+			"redis"
+		],
+		"development": [
+		    "grunt",
+		    "grunt-contrib-requirejs",
+		    "grunt-contrib-qunit",
+		    "grunt-amd-doc",
+		    "grunt-bower-requirejs",
+		    "grunt-amd-test",
+		    "matchdep",
+			"async"
+		]
+	}
+}

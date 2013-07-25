@@ -1,15 +1,15 @@
 {
-  "name": "LabStream",
+  "name": "labstream",
   "version": "0.0.1",
   "dependencies": {
-    "backbone-amd": "latest",
-    "underscore-amd": "latest",
-    "socket.io": "latest",
-    "jquery": "latest",
+    "backbone-amd": "~1.0.0",
+    "underscore-amd": "~1.5.1",
+    "socket.io": "~0.9.15",
+    "jquery": "~2.0.3",
     "gridster": "latest",
-    "requirejs": "latest"
+    "requirejs": "~2.1.8",
+    "requirejs-text": "~2.0.9",
+    "requirejs-plugins": "~1.0.2"
   },
-  "devDependencies": {
-
-  }
+  "devDependencies": {}
 }

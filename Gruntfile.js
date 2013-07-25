@@ -1,18 +1,17 @@
 module.exports = function(grunt) {
 
   grunt.initConfig({
-    requirejs: grunt.file.readJSON('client/config.json'),
+    requirejs: grunt.file.readJSON('client/r.json'),
     bower: {
       target: {
-          rjsConfig: 'client/config.json'
+          rjsConfig: 'client/r.json'
       }
     }
   });
 
-  grunt.loadNpmTasks('grunt-amd-doc');
-  grunt.loadNpmTasks('grunt-bower-requirejs');
-  grunt.loadNpmTasks('grunt-amd-test');
-  grunt.loadNpmTasks('grunt-contrib-requirejs');
+require('matchdep')
+  .filterDev('grunt-*')
+  .forEach(grunt.loadNpmTasks);
 
   grunt.registerTask('build', [
     'bower',
@@ -20,15 +19,28 @@ module.exports = function(grunt) {
     'amd-test'
   ]);
 
-  grunt.registerTask('install',
-    'Install Bower and NPM dependencies', function() {
+  grunt.registerTask('update',
+    'Force update all dependencies to the lastest version',
+    function () {
       var exec = require('child_process').exec;
+      var async = require('async');
       var cb = this.async();
-      exec('npm install',function(){
-        exec('bower Install', function(){
-          cb();
-        });
-      });
+      var deps = grunt.file.readJSON('dependencies.json');
+      var commands = [].concat(
+        deps.server.production.map(function(dep) {
+          return 'npm install ' + dep + ' --save';
+        }),
+        deps.server.development.map(function(dep) {
+          return 'npm install ' + dep + ' --save-dev';
+        }),
+        deps.client.production.map(function(dep) {
+          return 'bower install ' + dep + ' --save';
+        }),
+        deps.client.development.map(function(dep) {
+          return 'bower install ' + dep + ' --save-dev';
+        })
+      );
+      async.map(commands, exec, cb);
     });
 
 };
