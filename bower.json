@@ -8,7 +8,6 @@
     "jquery": "~2.0.3",
     "gridster": "latest",
     "requirejs": "~2.1.8",
-    "requirejs-text": "~2.0.9",
     "requirejs-plugins": "~1.0.2"
   },
   "devDependencies": {}

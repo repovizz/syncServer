@@ -1,9 +1,8 @@
-define(['config',
+define(['json!../shared/config.json',
         'entity',
         'backbone',
-        'io',
-        'underscore'],
-function(config,Entity,Backbone,io,_) {
+        'io',],
+function(config,Entity,Backbone,io) {
 
     var entities = _.map(config.entities, function(name) {
 
@@ -12,16 +11,16 @@ function(config,Entity,Backbone,io,_) {
             ),
             Model = Entity.extend({
                 type: name,
-                entitySocket: socket
+                entitySocket: Socket
             }),
             Collection = Backbone.Collection.extend({
                 type: name,
-                model: entity
+                model: Entity
             }),
             all = new Collection();
 
-        socket.on('create', all.create.bind(all));
-        all.socket = socket;
+        Socket.on('create', all.create.bind(all));
+        all.socket = Socket;
         all.create = function() {
             this.socket.send('create',arguments);
             Backbone.Collection.create.apply(this,arguments);

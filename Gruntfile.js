@@ -1,17 +1,27 @@
+/*
+ * Advanced Grunt file
+ * Requires matchdep and async to be installed
+ *
+ */
+
 module.exports = function(grunt) {
 
+  // Some of the configuration is loaded from external files
   grunt.initConfig({
-    requirejs: grunt.file.readJSON('client/r.json'),
+    //requirejs: grunt.file.readJSON('client/r.json'),
     bower: {
       target: {
-          rjsConfig: 'client/r.json'
+          rjsConfig: 'client/r.js'
       }
     }
   });
 
-require('matchdep')
-  .filterDev('grunt-*')
-  .forEach(grunt.loadNpmTasks);
+  // Load all tasks listed as dependencies
+  require('matchdep')
+    .filterDev('grunt-*')
+    .forEach(grunt.loadNpmTasks);
+
+  // Define some custom tasks and bundles
 
   grunt.registerTask('build', [
     'bower',

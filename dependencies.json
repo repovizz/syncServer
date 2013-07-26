@@ -7,7 +7,6 @@
 			"jquery",
 			"gridster",
 			"requirejs",
-			"requirejs-text",
 			"requirejs-plugins"
 		],
 		"development": []
@@ -26,6 +25,7 @@
 		    "grunt-amd-doc",
 		    "grunt-bower-requirejs",
 		    "grunt-amd-test",
+		    "qunit",
 		    "matchdep",
 			"async"
 		]

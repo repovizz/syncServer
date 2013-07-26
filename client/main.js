@@ -1,5 +1,5 @@
-define(['json!r.json'],function(deps) {
+define(['r'],function(r) {
 
-	require.config(deps);
+	console.log(r);
 
 });
