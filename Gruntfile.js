@@ -7,12 +7,20 @@
 module.exports = function(grunt) {
 
   // Some of the configuration is loaded from external files
+
+  var requirejs = grunt.file.readJSON('shared/r.json');
+  requirejs.baseUrl = 'client';
+
   grunt.initConfig({
-    //requirejs: grunt.file.readJSON('client/r.json'),
+    requirejs: requirejs,
     bower: {
       target: {
           rjsConfig: 'client/r.js'
       }
+    },
+    'amd-test': {
+      mode: 'qunit',
+      files: 'test/unit/**/*.js'
     }
   });
 

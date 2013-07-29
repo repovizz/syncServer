@@ -1,5 +1,5 @@
 {
-  "curly": true,
+  "curly": false,
   "eqeqeq": true,
   "immed": true,
   "latedef": true,
@@ -11,7 +11,6 @@
   "boss": true,
   "eqnull": true,
   "node": true,
-  "es5": true,
   "globals": {
     "define": false,
     "require": false,

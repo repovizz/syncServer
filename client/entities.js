@@ -1,13 +1,13 @@
-define(['json!../shared/config.json',
+define(['json!shared/config.json',
         'entity',
         'backbone',
-        'io',],
+        'socket.io'],
 function(config,Entity,Backbone,io) {
 
     var entities = _.map(config.entities, function(name) {
 
         var Socket = io.connect(
-                io.WS_ROOT + name
+                config.WS_ROOT + name
             ),
             Model = Entity.extend({
                 type: name,

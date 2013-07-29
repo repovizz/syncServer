@@ -3,7 +3,7 @@
 		"production": [
 			"backbone-amd",
 			"underscore-amd",
-			"socket.io",
+			"socket.io-client",
 			"jquery",
 			"gridster",
 			"requirejs",

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Test Runner</title>
+    <link rel="stylesheet" href="../node_modules/grunt-amd-test/tasks/lib/qunit-1.11.0.css">
+    <script src="../node_modules/grunt-amd-test/tasks/lib/qunit-1.11.0.js"></script>
+    <script src="../node_modules/grunt-amd-test/tasks/lib/require.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script>QUnit.config.autostart = false;</script>
+    <script>
+      require(
+       {
+    "baseUrl": "../client",
+    "paths": {
+        "jquery": "vendor/jquery/jquery",
+        "requirejs": "vendor/requirejs/require",
+        "socket.io": "vendor/socket.io-client/dist/socket.io",
+        "async": "vendor/requirejs-plugins/src/async",
+        "json": "vendor/requirejs-plugins/src/json",
+        "text": "vendor/requirejs-plugins/lib/text",
+        "backbone": "vendor/backbone-amd/backbone",
+        "gridster": "vendor/gridster/dist/jquery.gridster",
+        "underscore": "vendor/underscore-amd/underscore",
+        "shared": "/shared"
+    },
+    "shim": {
+        "jquery": {
+            "exports": "$"
+        },
+        "underscore": {
+            "exports": "_"
+        }
+    }
+}
+      );
+    </script>
+    <script>
+      require(
+       [
+    "unit/client/entity.js"
+],
+       function() {
+        if (window.QUnit) {
+         QUnit.start();
+        }
+        else if (window.jasmine) {
+         var jasmineEnv = jasmine.getEnv();
+         jasmineEnv.updateInterval = 1000;
+         var htmlReporter = new jasmine.HtmlReporter();
+         jasmineEnv.addReporter(htmlReporter);
+         jasmineEnv.execute();
+        }
+       }
+      );
+    </script>
+  </head>
+  <body>
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+  </body>
+</html>

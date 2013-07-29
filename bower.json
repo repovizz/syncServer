@@ -4,7 +4,7 @@
   "dependencies": {
     "backbone-amd": "~1.0.0",
     "underscore-amd": "~1.5.1",
-    "socket.io": "~0.9.15",
+    "socket.io-client": "~0.9.15",
     "jquery": "~2.0.3",
     "gridster": "latest",
     "requirejs": "~2.1.8",
