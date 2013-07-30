@@ -8,16 +8,14 @@ function(config,Backbone) {
 
     var entities = _.map(config.entities, function(name) {
 
-        var Collection = Backbone.Collection.extend({
-            backend: name,
-            initialize: function() {
-                var self = this;
-                this.bindBackend();
-                this.autoSync();
-            }
+        var collection = new Backbone.Collection({
+            backend: name
         });
 
-        return Collection;
+        collection.bindBackend()
+                  .autoSync();
+
+        return collection;
 
     });
 

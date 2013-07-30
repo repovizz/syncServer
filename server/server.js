@@ -9,33 +9,29 @@ var backboneio = require('backbone.io'),
     http = require('http');
 
 var app = express();
-var server = http.createServer(app);
-
-server.listen(3000);
+var server = app.listen(3000);
 
 app.get('/', function (req, res) {
   res.sendfile(__dirname + '../test/runner.html');
 });
 
-// app.use(express.directory('../'));
-// app.use(express.static('../'));
+app.use(express.static(__dirname + '/..'));
 
-var entities = __.map(config.entities, function(name) {
+var backends = __.map(config.entities, function(name) {
 
-    var backend = backboneio.createBackend(),
-        options = {};
-
+    var backend = backboneio.createBackend();
     backend.use(backboneio.middleware.memoryStore());
-    options[name] = backend;
-    backboneio.listen(server, options).disable('heartbeats');
-
     return backend;
 
 });
 
-entities = __.object(config.entities, entities);
+backends = __.object(config.entities, backends);
 
-entities.widget.use(function(req, res, next) {
+backboneio.listen(server,backends, {
+    // SOCKET.IO options go here
+});
+
+backends.widget.use(function(req, res, next) {
     console.log(req.backend);
     console.log(req.method);
     console.log(JSON.stringify(req.model));
