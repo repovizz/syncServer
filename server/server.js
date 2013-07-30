@@ -2,74 +2,43 @@
  * This is a stub of a socket.io server that responds to CRUD operations
  */
 
-var io = require('socket.io').listen(3000),
-    entities = require('entities'),
-    config = require('config'),
-    __ = require('underscore');
+var backboneio = require('backbone.io'),
+    config = require('../shared/config'),
+    __ = require('underscore'),
+    express = require('express'),
+    http = require('http');
+
+var app = express();
+var server = http.createServer(app);
+
+server.listen(3000);
+
+app.get('/', function (req, res) {
+  res.sendfile(__dirname + '../test/runner.html');
+});
+
+// app.use(express.directory('../'));
+// app.use(express.static('../'));
 
 var entities = __.map(config.entities, function(name) {
 
-    var socket = io.p;
+    var backend = backboneio.createBackend(),
+        options = {};
 
-    return {
-        namespace: '/' + name,
-        prefix: name
-    };
+    backend.use(backboneio.middleware.memoryStore());
+    options[name] = backend;
+    backboneio.listen(server, options).disable('heartbeats');
+
+    return backend;
 
 });
 
-exports = __.object(config.entities, entities);
+entities = __.object(config.entities, entities);
 
-
-
-
-
-
-
-
-
-
-// creates the event to push to listening clients
-var event = function (operation, sig) {
-    var e = operation + ':';
-    e += sig.endPoint;
-    if (sig.ctx) e += (':' + sig.ctx);
-
-    return e;
-};
-
-var create = function (socket, signature) {
-    var e = event('create', signature);
-    socket.emit(e, {id : 1});
-};
-
-var read = function (socket, signature) {
-    var e = event('read', signature), data;
-    data.push({});
-    socket.emit(e, data);
-};
-
-var update = function (socket, signature) {
-    var e = event('update', signature);
-    socket.emit(e, {success : true});
-};
-
-var destroy = function (socket, signature) {
-    var e = event('delete', signature);
-    socket.emit(e, {success : true});
-};
-
-io.sockets.on('connection', function (socket) {
-    socket.on('create', function (data) {
-        create(socket, data.signature);
-    });
-    socket.on('read', function (data) {
-        read(socket, data.signature);
-    });
-    socket.on('update', function (data) {
-        update(socket, data.signature);
-    });
-    socket.on('delete', function (data) {
-        destroy(socket, data.signature);
-    });
+entities.widget.use(function(req, res, next) {
+    console.log(req.backend);
+    console.log(req.method);
+    console.log(JSON.stringify(req.model));
+    next();
 });
+

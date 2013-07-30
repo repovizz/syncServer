@@ -15,7 +15,7 @@ module.exports = function(grunt) {
     requirejs: requirejs,
     bower: {
       target: {
-          rjsConfig: 'client/r.js'
+          rjsConfig: 'client/main'
       }
     },
     'amd-test': {

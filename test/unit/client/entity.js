@@ -1,7 +1,7 @@
-define(['entities'], function(Entities) {
+define(['entities','backbone'], function(Entities,Backbone) {
 
-	var source = new Entities.source.model();
-	window.source = source;
-	return this;
+	var widgets = new Entities.widget();
+	widgets.add(new Backbone.Model());
+	window.widgets = widgets;
 
 });

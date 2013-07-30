@@ -16,7 +16,8 @@
 			"express",
 			"underscore",
 			"socket.io",
-			"redis"
+			"redis",
+			"backbone.io"
 		],
 		"development": [
 		    "grunt",

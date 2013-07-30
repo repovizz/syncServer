@@ -5,6 +5,5 @@
 		"source",
 		"view",
 		"session"
-	],
-	"WS_ROOT": "http://localhost:3000/",
+	]
 }

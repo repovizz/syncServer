@@ -10,6 +10,7 @@
         "backbone": "vendor/backbone-amd/backbone",
         "gridster": "vendor/gridster/dist/jquery.gridster",
         "underscore": "vendor/underscore-amd/underscore",
+        "backbone.io": "/node_modules/backbone.io/lib/browser",
         "shared": "/shared"
     },
     "shim": {
@@ -18,6 +19,10 @@
         },
         "underscore": {
             "exports": "_"
+        },
+        "backbone.io": {
+            "deps": ["backbone", "socket.io"],
+            "exports": "Backbone.io"
         }
     }
 }

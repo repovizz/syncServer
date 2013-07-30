@@ -1,37 +1,23 @@
-define(['json!shared/config.json',
-        'entity',
-        'backbone',
-        'socket.io'],
-function(config,Entity,Backbone,io) {
+define(['json!shared/config.json','backbone','backbone.io'],
+function(config,Backbone) {
+
+    Backbone.io.connect(
+        'http://localhost:3000', {
+        // SOCKET.IO options go here
+    });
 
     var entities = _.map(config.entities, function(name) {
 
-        var Socket = io.connect(
-                config.WS_ROOT + name
-            ),
-            Model = Entity.extend({
-                type: name,
-                entitySocket: Socket
-            }),
-            Collection = Backbone.Collection.extend({
-                type: name,
-                model: Entity
-            }),
-            all = new Collection();
+        var Collection = Backbone.Collection.extend({
+            backend: name,
+            initialize: function() {
+                var self = this;
+                this.bindBackend();
+                this.autoSync();
+            }
+        });
 
-        Socket.on('create', all.create.bind(all));
-        all.socket = Socket;
-        all.create = function() {
-            this.socket.send('create',arguments);
-            Backbone.Collection.create.apply(this,arguments);
-        };
-
-        return {
-            model: Model,
-            collection: Collection,
-            socket: Socket,
-            all: all
-        };
+        return Collection;
 
     });
 
