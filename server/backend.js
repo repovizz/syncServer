@@ -21,16 +21,14 @@ var apiHandlers = {
         id = newKey ? random_key() : req.id;
         key = req.backend + ':' + id;
         client.sadd(req.backend, id);
-        client.hmset(key, data);
+        client.hmset(key, req.data);
 
-        var res = {};
         if (newKey) res.id = id;
         return res;
     },
 
     read: function(req, res, next) {
         var key = req.backend + ':' + req.id;
-        var res;
         if (req.data)
             res = client.hmget(key, req.data);
         else
@@ -39,15 +37,15 @@ var apiHandlers = {
     },
 
     update: function(req, res, next) {
-        key = req.backend + ':' + req.id;
+        var key = req.backend + ':' + req.id;
         client.sadd(req.backend, req.id);
-        client.hmset(key, data);
+        client.hmset(key, req.data);
     },
 
     delete: function(req, res, next) {
         // This should be managed by the server!
         var key = req.backend;
-        var id = req.id || data;
+        var id = req.id || req.data;
         key += ':' + id;
         client.del(key);
     },
@@ -58,7 +56,7 @@ var apiHandlers = {
         var multi = client.multi();
         multi.sadd([me,'listens'].join(':'), it);
         multi.sadd([me,'listens',req.data.backend].join(':'), it);
-        multi.sadd([it,'tells'].join(':'), me)
+        multi.sadd([it,'tells'].join(':'), me);
         multi.execute();
     },
 
@@ -66,19 +64,17 @@ var apiHandlers = {
         var key = req.backend;
         if (req.id)
             key += ':' + req.id;
+        key += ':feed';
         client.publish(key, req.data);
     },
 
     list: function(req, res, next) {
         var key = req.backend;
-        if (req.id) {
-            key += ':req.id';
+        var id = req.id || req.data;
+        if (id) {
+            key += ':' + id + ':listens';
         }
-        key += ':listeners'
-        if (req.data)
-            key += ':' + req.data;
-        }
-        var res = client.smembers(key);
+        client.smembers(key, next);
         return res;
     }
 
