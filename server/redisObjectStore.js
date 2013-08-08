@@ -1,6 +1,22 @@
-module.exports = function(client) {
+var redis = require('redis');
+var clientId =
 
-    var redis = require('redis');
+var backend = function(name) {
+    var listener = redis.createClient();
+    var handle = function(channel, data) {
+        var key = channel.split(':');
+        if (key[1] == 'create') {
+
+        }
+
+    };
+
+    listener.subscribe(name + ':create');
+    listener.on('message', handle);
+
+}
+
+var socketStore = function(client) {
 
     if (!client) client = redis.createClient();
 
@@ -95,3 +111,8 @@ module.exports = function(client) {
     };
 
 };
+
+exports = {
+    store: socketStore,
+
+}
