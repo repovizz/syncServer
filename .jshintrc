@@ -16,6 +16,7 @@
     "define": false,
     "require": false,
     "_": false,
-    "$": false
+    "$": false,
+    "Config": false
   }
 }

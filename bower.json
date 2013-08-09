@@ -6,9 +6,15 @@
     "underscore-amd": "~1.5.1",
     "socket.io-client": "~0.9.15",
     "jquery": "~2.0.3",
-    "gridster": "latest",
     "requirejs": "~2.1.8",
-    "requirejs-plugins": "~1.0.2"
+    "requirejs-plugins": "~1.0.2",
+    "bootstrap": "~3.0.0-rc1",
+    "gridster": "*",
+    "jquery-ui": "~1.10.3",
+    "modernizr": "~2.6.2"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "resolutions": {
+    "jquery": "~2.0.3"
+  }
 }

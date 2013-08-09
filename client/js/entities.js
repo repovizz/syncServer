@@ -1,14 +1,14 @@
-define(['json!shared/config.json','backbone','backbone.io'],
-function(config,Backbone) {
+define(['backbone','backbone.io'],
+function(Backbone) {
 
     Backbone.io.connect(
         'http://localhost:3000', {
         // SOCKET.IO options go here
     });
 
-    var entities = _.map(config.entities, function(name) {
+    var entities = _.map(Config.entities, function(name) {
 
-        var collection = new Backbone.Collection({
+        var collection = new Backbone.Collection([], {
             backend: name
         });
 
@@ -19,6 +19,6 @@ function(config,Backbone) {
 
     });
 
-    return _.object(config.entities, entities);
+    return _.object(Config.entities, entities);
 
 });

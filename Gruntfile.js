@@ -8,14 +8,14 @@ module.exports = function(grunt) {
 
   // Some of the configuration is loaded from external files
 
-  var requirejs = grunt.file.readJSON('shared/r.json');
+  var requirejs = grunt.file.readJSON('config/r.json');
   requirejs.baseUrl = 'client';
 
   grunt.initConfig({
     requirejs: requirejs,
     bower: {
       target: {
-          rjsConfig: 'client/main'
+          rjsConfig: 'client/js/main'
       }
     },
     'amd-test': {

@@ -7,7 +7,8 @@
 			"jquery",
 			"gridster",
 			"requirejs",
-			"requirejs-plugins"
+			"requirejs-plugins",
+			"jquery-ui"
 		],
 		"development": []
 	},
