@@ -12,8 +12,7 @@ function(Backbone) {
             backend: name
         });
 
-        collection.bindBackend()
-                  .autoSync();
+        collection.bindBackend().autoSync();
 
         return collection;
 

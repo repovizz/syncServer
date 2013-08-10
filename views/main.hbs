@@ -9,18 +9,18 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title></title>
         <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-        <link rel="stylesheet" href="vendor/normalize.css">
-        <link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap.css">
-        <link rel="stylesheet" href="vendor/jquery-ui.css">
-        <link rel="stylesheet" href="css/main.css">
-        <link rel="stylesheet" href="vendor/gridster/dist/jquery.gridster.css">
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
 
         {{! Bootstrap lightweight configuration without lazy-loading to speed it up }}
         <script type="text/javascript">
             var Config = JSON.parse('{{{config}}}');
         </script>
+
+        <link rel="stylesheet" href="vendor/normalize.css">
+        <link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap.css">
+        <link rel="stylesheet" href="vendor/jquery-ui.css">
+        <link rel="stylesheet" href="vendor/jquery.gridster.css">
+        <link rel="stylesheet" href="css/main.css">
 
         <script type="text/javascript"
                 src="vendor/requirejs/require.js"
@@ -40,30 +40,34 @@
                 <a class="navbar-brand" href="#">LabStream</a>
             </header>
 
-            <div class="row">
+            <div class="widgets gridster">
 
-                <div class="sidebar col-lg-3">
-                    <ul class="list-group">
-                        <li class="list-group-item">
-                            <span class="badge">6</span>
-                                Widgets
-                        </li>
-                        <li class="list-group-item">
-                            <span class="badge">2</span>
-                                Sources
-                        </li>
-                        <li class="list-group-item">
-                            <span class="badge">134</span>
-                                Users
-                        </li>
-                    </ul>
-                </div>
+                {{#with sidebar}}
+                    {{> widget_header}}
+                        <div class="sidebar">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <span class="badge">6</span>
+                                        Widgets
+                                </li>
+                                <li class="list-group-item">
+                                    <span class="badge">2</span>
+                                        Sources
+                                </li>
+                                <li class="list-group-item">
+                                    <span class="badge">134</span>
+                                        Users
+                                </li>
+                            </ul>
+                        </div>
+                    {{> widget_footer}}
+                {{/with}}
 
-                <div class="widgets col-lg-9 gridster">
-                    {{#each widgets}}
-                        {{> widget}}
-                    {{/each}}
-                </div>
+                {{#each widgets}}
+                    {{> widget_header}}
+                        This is a test widget.
+                    {{> widget_footer}}
+                {{/each}}
 
             </div>
 

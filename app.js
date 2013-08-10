@@ -52,7 +52,13 @@ var init = {
                         width: 1,
                         height: 1
                     }
-                ]
+                ],
+                sidebar: {
+                    row: 1,
+                    col: 3,
+                    width: 1,
+                    height: 2
+                }
             });
         });
         app.use(express.static(__dirname + '/dist'));
@@ -67,6 +73,12 @@ var server = init[app.get('env')](app);
 var backends = __.map(config.entities, function(name) {
 
     var backend = backboneio.createBackend(name);
+    backend.use(function(req, res, next) {
+        console.log(req.backend);
+        console.log(req.method);
+        console.log(JSON.stringify(req.model));
+        next();
+    });
     //backend.use(backboneio.middleware.channel());
     //backend.use(redisObjectStore());
     return backend;
@@ -77,11 +89,4 @@ backends = __.object(config.entities, backends);
 
 backboneio.listen(server,backends, {
     // SOCKET.IO options go here
-});
-
-backends.widget.use(function(req, res, next) {
-    console.log(req.backend);
-    console.log(req.method);
-    console.log(JSON.stringify(req.model));
-    next();
 });
