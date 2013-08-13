@@ -74,9 +74,8 @@ var backends = __.map(config.entities, function(name) {
 
     var backend = backboneio.createBackend(name);
     backend.use(function(req, res, next) {
-        console.log(req.backend);
-        console.log(req.method);
-        console.log(JSON.stringify(req.model));
+        console.log(req.backend + ' : ' + req.method);
+        console.log(JSON.stringify(req.model || req));
         next();
     });
     //backend.use(backboneio.middleware.channel());
@@ -87,6 +86,8 @@ var backends = __.map(config.entities, function(name) {
 
 backends = __.object(config.entities, backends);
 
-backboneio.listen(server,backends, {
-    // SOCKET.IO options go here
+var io = backboneio.listen(server,backends, {
+    // BACKBONE.IO options go here
 });
+
+io.set('log level',2);
