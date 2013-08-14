@@ -38,12 +38,14 @@ require(['jquery', 'underscore'], function() {
     // Now do all the bindings
 
     require(['entities','grid'], function(Entities, Grid) {
-        var session = Entities.session.create();
+        var session = Entities.session.create({id: 10});
         Grid.on('change', function(ui) {
             session.set({
                 layout: ui.getLayout()
             });
         });
     });
+
+    globalize('entities');
 
 });

@@ -7,7 +7,7 @@ var backboneio = require('backbone.io'),
     __ = require('underscore'),
     express = require('express'),
     hbs = require('hbs'),
-    redisObjectStore = require('./lib/redisObjectStore');
+    db = require('./lib/db');
 
 var init = {
     development: function(app) {
@@ -24,6 +24,10 @@ var init = {
     },
     _common: function(app, settings) {
         var server = app.listen(settings.port || 3000);
+        db.config({
+            host: 'localhost',
+            port: 6379
+        });
         app.set('view engine', 'hbs');
         app.set('views', __dirname + '/views');
         hbs.registerPartials(__dirname + '/views/partials');
@@ -69,24 +73,20 @@ var init = {
 
 var app = express();
 var server = init[app.get('env')](app);
+var backend = backboneio.createBackend();
 
-var backends = __.map(config.entities, function(name) {
-
-    var backend = backboneio.createBackend(name);
-    backend.use(function(req, res, next) {
-        console.log(req.backend + ' : ' + req.method);
-        console.log(JSON.stringify(req.model || req));
-        next();
-    });
-    //backend.use(backboneio.middleware.channel());
-    //backend.use(redisObjectStore());
-    return backend;
-
+backend.use(function(req, res, next) {
+    console.log(req.entity + ' : ' + req.method);
+    if (req.model)
+        console.log(JSON.stringify(req.model));
+    else
+        console.log(JSON.stringify(req.id));
+    next();
 });
+backend.use(backboneio.middleware.channel());
+backend.use(db.middleware());
 
-backends = __.object(config.entities, backends);
-
-var io = backboneio.listen(server,backends, {
+var io = backboneio.listen(server,{entities: backend}, {
     // BACKBONE.IO options go here
 });
 
