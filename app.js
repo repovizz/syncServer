@@ -83,11 +83,17 @@ backend.use(function(req, res, next) {
         console.log(JSON.stringify(req.id));
     next();
 });
+backend.use(db.middleware.auth());
+backend.use(db.middleware.store());
 backend.use(backboneio.middleware.channel());
-backend.use(db.middleware());
 
 var io = backboneio.listen(server,{entities: backend}, {
     // BACKBONE.IO options go here
+    init: function(socket) {
+        return {
+            sessionID: socket.id
+        };
+    }
 });
 
 io.set('log level',2);
