@@ -2,7 +2,7 @@ define(['backbone','backbone.io'],
 function(Backbone) {
 
     Backbone.io.connect(
-        'http://localhost:3000', {
+        window.location.origin, {
         // SOCKET.IO options go here
     });
 

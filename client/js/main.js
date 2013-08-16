@@ -37,10 +37,18 @@ require(['jquery', 'underscore'], function() {
 
     // Now do all the bindings
 
-    require(['entities','grid'], function(Entities, Grid) {
+    require(['entities','widget'], function(Entities,Widget) {
         //do something
+        $('.widget').each(function() {
+            var w = new Widget(Math.random(), $('.container'));
+            w.$el.append(this);
+            Entities.widget.add(w.model);
+        })
+        w = new Widget(1, $('.container'));
+        Entities.widget.add(w.model);
     });
 
     globalize('entities');
+    globalize('widget');
 
 });
