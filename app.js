@@ -24,7 +24,7 @@ var init = {
     },
     _common: function(app, settings) {
         var server = app.listen(settings.port || 3000);
-        db.config({
+        db.init({
             host: 'localhost',
             port: 6379
         });
@@ -33,36 +33,9 @@ var init = {
         hbs.registerPartials(__dirname + '/views/partials');
         app.get('/', function(req,res) {
             res.render('main', {
-                config: JSON.stringify(config),
-                widgets: [
-                    {
-                        row: 1,
-                        col: 1,
-                        width: 1,
-                        height: 1
-                    },{
-                        row: 2,
-                        col: 1,
-                        width: 1,
-                        height: 1
-                    },{
-                        row: 1,
-                        col: 2,
-                        width: 1,
-                        height: 1
-                    },{
-                        row: 2,
-                        col: 2,
-                        width: 1,
-                        height: 1
-                    }
-                ],
-                sidebar: {
-                    row: 1,
-                    col: 3,
-                    width: 1,
-                    height: 2
-                }
+                config: JSON.stringify(config.common),
+                widgets: config.widgets,
+                sidebar: config.sidebar
             });
         });
         app.use(express.static(__dirname + '/dist'));
@@ -88,12 +61,36 @@ backend.use(db.middleware.store());
 backend.use(backboneio.middleware.channel());
 
 var io = backboneio.listen(server,{entities: backend}, {
-    // BACKBONE.IO options go here
+    // When a user connects, we force the creation of a session for it
     init: function(socket) {
+        var req = {
+            socket: socket,
+            method: 'create',
+            entity: 'session',
+            backend: backend,
+            id: socket.id
+        };
+        var res = {
+            end: function(data) {
+                socket.emit('msg',data);
+            },
+            error: function(err) {
+                console.log(err);
+            }
+        };
+        backend.handle(req, res, function(){});
         return {
             sessionID: socket.id
         };
     }
+});
+
+['update','destroy'].forEach(function(method) {
+    db.updates.on(method, function(data) {
+        data.method = method;
+        io.of('entities').broadcast.to(data.entity + ':' + data.id)
+            .emit('msg', data);
+    });
 });
 
 io.set('log level',2);

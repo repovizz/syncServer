@@ -1,13 +1,44 @@
 {
-	"entities": [
-		"stream",
-		"widget",
-		"source",
-		"view",
-		"session"
+	"common": {
+		"entities": [
+			"stream",
+			"widget",
+			"source",
+			"view",
+			"session"
+		],
+		"widget": {
+			"margin": 5,
+			"size": 160
+		}
+	},
+	"widgets": [
+	    {
+	        "row": 1,
+	        "col": 1,
+	        "width": 1,
+	        "height": 1
+	    },{
+	        "row": 2,
+	        "col": 1,
+	        "width": 1,
+	        "height": 1
+	    },{
+	        "row": 1,
+	        "col": 2,
+	        "width": 1,
+	        "height": 1
+	    },{
+	        "row": 2,
+	        "col": 2,
+	        "width": 1,
+	        "height": 1
+	    }
 	],
-	"widget": {
-		"margin": 5,
-		"size": 160
-	}
+	"sidebar": {
+	    "row": 1,
+	    "col": 3,
+	    "width": 1,
+	    "height": 2
+    }
 }
