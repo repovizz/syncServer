@@ -1,0 +1,11 @@
+{
+  "globals": {
+    "define": false,
+    "require": false,
+    "_": false,
+    "$": false,
+    "Config": false,
+    "window": false,
+    "globalize": false
+  }
+}

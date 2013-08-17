@@ -11,12 +11,5 @@
   "boss": true,
   "eqnull": true,
   "node": true,
-  "laxcomma": true,
-  "globals": {
-    "define": false,
-    "require": false,
-    "_": false,
-    "$": false,
-    "Config": false
-  }
+  "laxcomma": true
 }

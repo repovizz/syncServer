@@ -4,7 +4,6 @@
 
 var backboneio = require('backbone.io'),
     config = require('./config/config.json'),
-    __ = require('underscore'),
     express = require('express'),
     hbs = require('hbs'),
     db = require('./lib/db');
@@ -24,10 +23,6 @@ var init = {
     },
     _common: function(app, settings) {
         var server = app.listen(settings.port || 3000);
-        db.init({
-            host: 'localhost',
-            port: 6379
-        });
         app.set('view engine', 'hbs');
         app.set('views', __dirname + '/views');
         hbs.registerPartials(__dirname + '/views/partials');
@@ -46,6 +41,12 @@ var init = {
 
 var app = express();
 var server = init[app.get('env')](app);
+
+db.init({
+    host: 'localhost',
+    port: 6379
+});
+
 var backend = backboneio.createBackend();
 
 backend.use(function(req, res, next) {
@@ -60,36 +61,37 @@ backend.use(db.middleware.auth());
 backend.use(db.middleware.store());
 backend.use(backboneio.middleware.channel());
 
-var io = backboneio.listen(server,{entities: backend}, {
-    // When a user connects, we force the creation of a session for it
-    init: function(socket) {
-        var req = {
-            socket: socket,
-            method: 'create',
-            entity: 'session',
-            backend: backend,
-            id: socket.id
-        };
-        var res = {
-            end: function(data) {
-                socket.emit('msg',data);
-            },
-            error: function(err) {
-                console.log(err);
-            }
-        };
-        backend.handle(req, res, function(){});
-        return {
-            sessionID: socket.id
-        };
-    }
+// When a user connects, we force the creation of a session for it
+backend.on('connection', function(socket) {
+    var req = {
+        socket: socket,
+        method: 'create',
+        entity: 'session',
+        backend: backend,
+        id: socket.id
+    };
+    var res = {
+        end: function(data) {
+            socket.emit('msg',data);
+        },
+        error: function(err) {
+            console.log(err);
+        }
+    };
+    backend.handle(req, res, function(){});
+    socket.emit('init',{
+        sessionID: socket.id,
+        event: 'backend'
+    });
 });
 
+var io = backboneio.listen(server,{entities: backend});
+
+// Send updates on the database to the clients
 ['update','destroy'].forEach(function(method) {
     db.updates.on(method, function(data) {
-        data.method = method;
-        io.of('entities').broadcast.to(data.entity + ':' + data.id)
-            .emit('msg', data);
+        var channel = data.entity + ':' + data.id;
+        backend.send(method, data, channel);
     });
 });
 

@@ -37,18 +37,20 @@ require(['jquery', 'underscore'], function() {
 
     // Now do all the bindings
 
-    require(['entities','widget'], function(Entities,Widget) {
-        //do something
+    require(['entities','components/widget'], function(Entities,Widget) {
+        // Take some predefined widgets and sync them
         $('.widget').each(function() {
             var w = new Widget(Math.random(), $('.container'));
             w.$el.append(this);
             Entities.widget.add(w.model);
-        })
-        w = new Widget(1, $('.container'));
-        Entities.widget.add(w.model);
+        });
+        // Create a shared widget, just for fun
+        window.w = new Widget(1, $('.container'));
+        Entities.widget.add(window.w.model);
     });
 
+    // Expose some modules for easy hacking on-the-fly
     globalize('entities');
-    globalize('widget');
+    globalize('components/widget');
 
 });
