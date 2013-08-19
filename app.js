@@ -1,5 +1,5 @@
 /*
- * This is a stub of a socket.io server that responds to CRUD operations
+ * SocketIO + BackboneIO + Redis + Exress/HBS
  */
 
 var backboneio = require('backbone.io'),
@@ -50,7 +50,7 @@ db.init({
 var backend = backboneio.createBackend();
 
 backend.use(function(req, res, next) {
-    console.log(req.entity + ' : ' + req.method);
+    console.log(req.entity + ':' + req.id + ':' + req.method);
     if (req.model)
         console.log(JSON.stringify(req.model));
     else
@@ -85,7 +85,11 @@ backend.on('connection', function(socket) {
     });
 });
 
-var io = backboneio.listen(server,{entities: backend});
+var io = backboneio.listen(
+    server,
+    {entities: backend},
+    {static: false}
+);
 
 // Send updates on the database to the clients
 ['update','destroy'].forEach(function(method) {
