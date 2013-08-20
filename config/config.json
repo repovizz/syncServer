@@ -11,24 +11,5 @@
 			"margin": 5,
 			"size": 160
 		}
-	},
-	"widgets": [
-	    {
-	        "row": 1,
-	        "col": 1,
-	        "width": 1,
-	        "height": 1
-	    },{
-	        "row": 2,
-	        "col": 1,
-	        "width": 1,
-	        "height": 1
-	    }
-	],
-	"sidebar": {
-	    "row": 1,
-	    "col": 3,
-	    "width": 1,
-	    "height": 2
-    }
+	}
 }

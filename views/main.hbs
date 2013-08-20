@@ -26,8 +26,6 @@
                 src="vendor/requirejs/require.js"
                 data-main="js/main">
         </script>
-        {{! Debug only}}
-        <script type="text/javascript" src="js/utils/globalize.js"></script>
 
     </head>
 
@@ -42,36 +40,7 @@
                 <a class="navbar-brand" href="#">LabStream</a>
             </header>
 
-            <div class="widgets gridster">
-
-                {{#with sidebar}}
-                    {{> widget_header}}
-                        <div class="sidebar">
-                            <ul class="list-group">
-                                <li class="list-group-item">
-                                    <span class="badge">6</span>
-                                        Widgets
-                                </li>
-                                <li class="list-group-item">
-                                    <span class="badge">2</span>
-                                        Sources
-                                </li>
-                                <li class="list-group-item">
-                                    <span class="badge">134</span>
-                                        Users
-                                </li>
-                            </ul>
-                        </div>
-                    {{> widget_footer}}
-                {{/with}}
-
-                {{#each widgets}}
-                    {{> widget_header}}
-                        This is a test widget.
-                    {{> widget_footer}}
-                {{/each}}
-
-            </div>
+            <div class="widgets"></div>
 
         </div>
 

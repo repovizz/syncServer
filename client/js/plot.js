@@ -7,7 +7,7 @@
  *
  */
 
-define(['lib/player'], function (Player) {
+define(['utils/player'], function (Player) {
 
     var canvas, context, w, h, interval;
 

@@ -28,9 +28,7 @@ var init = {
         hbs.registerPartials(__dirname + '/views/partials');
         app.get('/', function(req,res) {
             res.render('main', {
-                config: JSON.stringify(config.common),
-                widgets: config.widgets,
-                sidebar: config.sidebar
+                config: JSON.stringify(config.common)
             });
         });
         app.use(express.static(__dirname + '/dist'));

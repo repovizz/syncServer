@@ -1,19 +1,19 @@
 /* JavaScript Module Definition
  *
  * Name: Buffer
- * Dependencies: 
+ * Dependencies: Backbone.Events
  * Publishes: update, empty, full
- * Provides: read, write, size, overwrite, empty
+ * Provides: read, write, flush, size, overwrite, empty
  *
  * Implements a Producer/Consumer style queue
  *
  */
 
-define([], function () {
+define(['backbone'], function (Backbone) {
 
     var Buffer = function(size) {
 
-        Eventjs(this,'update','empty','full');
+        _.extend(this, Backbone.Events);
 
         this.size = size || 128;
         this.empty = true;

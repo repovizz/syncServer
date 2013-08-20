@@ -1,11 +1,11 @@
 // This is like a Backbone View, but made from scratch
 // We are using custom DOM events, so the built-in View is rather useless
 
-define(['backbone', 'jquery-ui'], function(Backbone) {
+define(['entities', 'jquery-ui'], function(Entities) {
 
 	var Widget = function(id, context) {
 		id = this.id = id || new Date().getTime();
-		var model = this.model = new Backbone.Model({
+		var model = this.model = Entities.widget.create({
 			id: this.id,
 			'class': 'generic'
 		});
@@ -27,6 +27,7 @@ define(['backbone', 'jquery-ui'], function(Backbone) {
 		this.model.on('change:position', setPosition, this);
 		this.model.on('change:width', setWidth, this);
 		this.model.on('change:height', setHeight, this);
+
 		return this;
 	};
 

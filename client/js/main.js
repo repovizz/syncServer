@@ -13,7 +13,8 @@ require.config({
         "bootstrap": "../vendor/bootstrap/dist/js/bootstrap.js",
         "backbone.io": "../vendor/backbone.io",
         "jquery-ui": "../vendor/jquery-ui",
-        "jquery-migrate": "../vendor/jquery-migrate"
+        "jquery-migrate": "../vendor/jquery-migrate",
+        "jquery-touch-punch": "../vendor/jquery.ui.touch-punch"
     },
     "shim": {
         "jquery": {
@@ -28,29 +29,32 @@ require.config({
         },
         "gridster": {
             "deps": ["jquery-migrate"]
+        },
+        "jquery-ui": {
+            "deps": ["jquery-touch-punch"]
         }
     }
 });
 
 // Require globally available stuff
-require(['jquery', 'underscore'], function() {
+require(['jquery', 'underscore', 'utils/rAF'], function() {
 
     // Now do all the bindings
+    require(['components/widget','components/scope','stream'],
+    function(Widget,Scope,Stream) {
+        // Create some widgets
 
-    require(['entities','components/widget'], function(Entities,Widget) {
-        // Take some predefined widgets and sync them
-        $('.widget').each(function() {
-            var w = new Widget(Math.random(), $('.container'));
-            w.$el.append(this);
-            Entities.widget.add(w.model);
-        });
-        // Create a shared widget, just for fun
         window.w = new Widget(1, $('.container'));
-        Entities.widget.add(window.w.model);
+
+        window.stream = new Stream({id: 3});
+        window.scope = new Scope(2, $('.container'), stream);
+
     });
 
     // Expose some modules for easy hacking on-the-fly
-    globalize('entities');
-    globalize('components/widget');
+    require(['utils/globalize'], function() {
+        globalize('entities');
+        globalize('components/widget');
+    });
 
 });
