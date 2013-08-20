@@ -90,7 +90,7 @@ var io = backboneio.listen(
 );
 
 // Send updates on the database to the clients
-['update','destroy'].forEach(function(method) {
+['update','destroy','frame'].forEach(function(method) {
     db.updates.on(method, function(data) {
         var channel = data.entity + ':' + data.id;
         backend.send(method, data, channel);

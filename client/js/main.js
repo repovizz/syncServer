@@ -46,7 +46,7 @@ require(['jquery', 'underscore', 'utils/rAF'], function() {
 
         window.w = new Widget(1, $('.container'));
 
-        window.stream = new Stream({id: 3});
+        window.stream = new Stream({id: 1});
         window.scope = new Scope(2, $('.container'), stream);
 
     });

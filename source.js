@@ -9,6 +9,9 @@ var noop = function(){};
 
 var Stream = function(id) {
 	this.id = id;
+	this.frameLength = 128;
+	this.dimensions = 1;
+	this.frameRate = 12;
 	// Subscribe to parameter changes from the client
 	listener.subscribe('stream:'+id+':feed');
 	events.on(id + ':update', function(message) {
@@ -41,9 +44,9 @@ var Stream = function(id) {
 };
 
 Stream.prototype.newFrame = function() {
-	var signal = new Buffer(this.frameLength);
+	var signal = new Buffer(this.frameLength * 2);
 	for (var i = 0; i < this.frameLength; ++i) {
-		signal.writeFloatLE(Math.random() * 2 - 1);
+		signal.writeFloatLE(Math.random() * 2 - 1, i);
 	}
 	client.publish('stream:'+this.id+':pipe', signal, noop);
 	setTimeout(this.newFrame.bind(this), this.interval);
