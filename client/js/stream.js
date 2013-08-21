@@ -6,21 +6,13 @@ function(Entities, Backbone) {
 
     var Stream = Backbone.Model.extend({
         initialize: function(attrs, opts) {
-            this.on('backend:frame', function(frame) {
-                this.trigger('frame', frame);
+            this.on('backend:frame', function(meta, frame) {
+                frame = new Float32Array(frame);
+                this.trigger('frame', frame, meta);
             }, this);
             Entities.stream.add(this);
         }
     });
-
-    // var Stream = function(id) {
-    //     this.model = Entities.stream.create({id: id});
-    //     this.model.on('backend:frame', function(frame) {
-    //         this.buffer.push(frame);
-    //         this.trigger('frame', frame);
-    //     });
-    //     return this;
-    // };
 
     return Stream;
 

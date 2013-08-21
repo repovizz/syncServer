@@ -49,10 +49,7 @@ var backend = backboneio.createBackend();
 
 backend.use(function(req, res, next) {
     console.log(req.entity + ':' + req.id + ':' + req.method);
-    if (req.model)
-        console.log(JSON.stringify(req.model));
-    else
-        console.log(JSON.stringify(req.id));
+    if (req.data) console.dir(req.data);
     next();
 });
 backend.use(db.middleware.auth());
@@ -91,9 +88,9 @@ var io = backboneio.listen(
 
 // Send updates on the database to the clients
 ['update','destroy','frame'].forEach(function(method) {
-    db.updates.on(method, function(data) {
-        var channel = data.entity + ':' + data.id;
-        backend.send(method, data, channel);
+    db.updates.on(method, function(meta, data) {
+        meta.method = method;
+        backend.send(meta, data);
     });
 });
 

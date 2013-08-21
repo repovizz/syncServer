@@ -22,7 +22,7 @@ define(['components/widget','utils/colors'], function(Widget,colors) {
         return this;
     };
 
-    Scope.prototype.render = function(data) {
+    Scope.prototype.render = function(data, meta) {
         if (!data) return;
 
         var ctx = this.context;

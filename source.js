@@ -15,11 +15,12 @@ var Stream = function(id) {
 	// Subscribe to parameter changes from the client
 	listener.subscribe('stream:'+id+':feed');
 	events.on(id + ':update', function(message) {
+		if (!message.model) return;
 		if (message.model.frameLength)
 			this.frameLength = message.model.frameLength;
 		else if (message.model.frameRate)
 			this.interval = 1 / message.model.frameRate;
-	});
+	}, this);
 	// Create the entity in the DB
 	var defaults = {
 		id: id,
@@ -55,7 +56,12 @@ Stream.prototype.newFrame = function() {
 listener.on('message', function(channel, data) {
 	channel = channel.split(':');
 	data = JSON.parse(data);
-	events.trigger(channel[1]+':'+data.method, data);
+	if (data.method == 'update') {
+		client.hgetall(data.entity+':'+data.id, function(model) {
+			data.model = model;
+			events.emit(channel[1]+':'+data.method, data);
+		});
+	}
 });
 
 new Stream(1);
