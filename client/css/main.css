@@ -15,5 +15,30 @@ html, body {
     padding:0;
     border-width:0;
     top: 0;
+    right: 0;
+}
+
+.scopeCanvas {
+    position: absolute;
+    width:70%;
+    height: 100%;
+    padding:0;
+    border-width:0;
+    top: 0;
+    right: 0;
+}
+
+.scopeKnobs {
+    position: absolute;
+    width: 30%;
+    height: 100%;
+    top: 0;
     left: 0;
+}
+
+.scopeKnobs > .knob {
+    left: 0;
+    width: 100%;
+    height: 45%;
+    margin-top: 5%;
 }

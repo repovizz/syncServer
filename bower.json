@@ -10,8 +10,8 @@
     "requirejs-plugins": "~1.0.2",
     "bootstrap": "~3.0.0-rc1",
     "gridster": "*",
-    "jquery-ui": "~1.10.3",
-    "modernizr": "~2.6.2"
+    "modernizr": "~2.6.2",
+    "jquery-knob": "~1.2.2"
   },
   "devDependencies": {},
   "resolutions": {

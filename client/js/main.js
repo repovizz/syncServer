@@ -14,7 +14,9 @@ require.config({
         "backbone.io": "../vendor/backbone.io",
         "jquery-ui": "../vendor/jquery-ui",
         "jquery-migrate": "../vendor/jquery-migrate",
-        "jquery-touch-punch": "../vendor/jquery.ui.touch-punch"
+        "jquery-touch-punch": "../vendor/jquery.ui.touch-punch",
+        "base64": "../vendor/base64-binary",
+        "jquery-knob": "../vendor/jquery-knob/js/jquery.knob"
     },
     "shim": {
         "jquery": {
@@ -29,9 +31,6 @@ require.config({
         },
         "gridster": {
             "deps": ["jquery-migrate"]
-        },
-        "jquery-ui": {
-            "deps": ["jquery-touch-punch"]
         }
     }
 });
@@ -39,16 +38,23 @@ require.config({
 // Require globally available stuff
 require(['jquery', 'underscore', 'utils/rAF'], function() {
 
+    // Make sure that touch-punch is loaded after jquery-ui
+    // and jquery-ui after jquery
+    require(['jquery-ui'], function() {
+        require(['jquery-touch-punch']);
+    });
+
     // Now do all the bindings
-    require(['components/widget','components/scope','stream'],
-    function(Widget,Scope,Stream) {
+    require(['components/scope','stream'],
+    function(Scope,Stream) {
         // Create some widgets
-
-        window.w = new Widget(1, $('.container'));
-
-        window.stream = new Stream({id: 1});
-        window.scope = new Scope(2, $('.container'), stream);
-
+        $(function() {
+            //window.w = new Widget('test', $('.container'));
+            for (var i = 1; i < 3; i++) {
+                window.stream = new Stream({id: i});
+                window.scope = new Scope(i, $('.container'), stream);
+            }
+        });
     });
 
     // Expose some modules for easy hacking on-the-fly

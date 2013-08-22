@@ -22,7 +22,7 @@ var init = {
         return server;
     },
     _common: function(app, settings) {
-        var server = app.listen(settings.port || 3000);
+        var server = app.listen(settings.port || 3000, '0.0.0.0');
         app.set('view engine', 'hbs');
         app.set('views', __dirname + '/views');
         hbs.registerPartials(__dirname + '/views/partials');
@@ -56,8 +56,8 @@ backend.use(db.middleware.auth());
 backend.use(db.middleware.store());
 backend.use(backboneio.middleware.channel());
 
-// When a user connects, we force the creation of a session for it
 backend.on('connection', function(socket) {
+    // When a user connects, we force the creation of a session for it
     var req = {
         socket: socket,
         method: 'create',
@@ -74,24 +74,31 @@ backend.on('connection', function(socket) {
         }
     };
     backend.handle(req, res, function(){});
+    // We also send it info about the session and the server
     socket.emit('init',{
         sessionID: socket.id,
         event: 'backend'
     });
 });
 
+// Start the websockets server
 var io = backboneio.listen(
     server,
     {entities: backend},
     {static: false}
 );
+io.set('log level',2);
 
 // Send updates on the database to the clients
-['update','destroy','frame'].forEach(function(method) {
+
+['update','destroy'].forEach(function(method) {
     db.updates.on(method, function(meta, data) {
         meta.method = method;
         backend.send(meta, data);
     });
 });
 
-io.set('log level',2);
+db.updates.on('frame', function(meta, data) {
+    meta.method = 'frame';
+    backend.send(meta, data.toString('base64'), {volatile: true});
+});
