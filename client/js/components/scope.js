@@ -6,7 +6,7 @@
  *
  */
 
-define(['components/widget','utils/colors', 'knob'],
+define(['components/widget','utils/colors', /*'knob'*/],
 function(Widget,colors,Knob) {
 
     var Scope = function(id, container, stream) {
@@ -23,14 +23,14 @@ function(Widget,colors,Knob) {
         this.render = _.throttle(this.render);
         this.$el.append(this.canvas);
 
-        var knobs = $('<div class="scopeKnobs"></div>');
-        var rate = new Knob('frameRate', this.stream, {min:3,max:60,width:100}, knobs);
-        var len = new Knob('frameLength', this.stream, {min:16,max:128,width:100}, knobs);
-        this.$el.append(knobs);
+        //var knobs = $('<div class="scopeKnobs"></div>');
+        //var rate = new Knob('frameRate', this.stream, {min:3,max:60,width:100}, knobs);
+        //var len = new Knob('frameLength', this.stream, {min:16,max:128,width:100}, knobs);
+        //this.$el.append(knobs);
 
         var resize = function(value) {
-            rate.resize();
-            len.resize();
+        //    rate.resize();
+        //    len.resize();
             self.canvas.width = $(self.canvas).width();
             self.canvas.height = $(self.canvas).height();
         };
@@ -78,7 +78,7 @@ function(Widget,colors,Knob) {
     };
 
     Scope.prototype.setStream = function(stream) {
-        if (this.stream) this.stream.off('frame', this.render);
+        if (this.stream) this.stream.off('frame', this.render, this);
         this.stream = stream;
         this.stream.on('frame', this.render, this);
     };
