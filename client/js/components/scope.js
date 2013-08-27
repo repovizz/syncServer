@@ -6,15 +6,15 @@
  *
  */
 
-define(['components/widget','utils/colors', /*'knob'*/],
-function(Widget,colors,Knob) {
+define(['components/widget','utils/colors', 'slider'],
+function(Widget, colors, Slider) {
 
     var Scope = function(id, container, stream) {
         var self = this;
         Widget.apply(this, arguments);
 
         this.$el.addClass('scope');
-        this.canvas = $('<canvas id="scope" class="scopeCanvas"></canvas>')[0];
+        this.canvas = $('<canvas id="scope" class="expand"></canvas>')[0];
         this.context = this.canvas.getContext('2d');
         if (stream) this.setStream(stream);
         this.$el.on('dialogresize', function() {
@@ -23,14 +23,12 @@ function(Widget,colors,Knob) {
         this.render = _.throttle(this.render);
         this.$el.append(this.canvas);
 
-        //var knobs = $('<div class="scopeKnobs"></div>');
-        //var rate = new Knob('frameRate', this.stream, {min:3,max:60,width:100}, knobs);
-        //var len = new Knob('frameLength', this.stream, {min:16,max:128,width:100}, knobs);
-        //this.$el.append(knobs);
+        var knobs = $('<div class="scopeKnobs"></div>');
+        var rate = new Slider('frameRate', this.stream, {min:3,max:60,width:100}, knobs);
+        var len = new Slider('frameLength', this.stream, {min:16,max:128,width:100}, knobs);
+        this.$el.append(knobs);
 
         var resize = function(value) {
-        //    rate.resize();
-        //    len.resize();
             self.canvas.width = $(self.canvas).width();
             self.canvas.height = $(self.canvas).height();
         };

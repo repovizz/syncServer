@@ -6,9 +6,12 @@ function(Entities, Backbone) {
 
     var Stream = Backbone.Model.extend({
         initialize: function(attrs, opts) {
+            opts || (opts = {});
             Entities.stream.add(this);
+
             this.on('backend:frame', function(meta, frame) {
-                frame = Base64Binary.decode(frame);
+                if (! opts.raw)
+                    frame = Base64Binary.decode(frame);
                 this.trigger('frame', frame, meta);
             }, this);
         }

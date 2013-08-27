@@ -19,10 +19,12 @@ var init = {
     production: function(app) {
         var settings = require('./config/production');
         var server = init._common(app,settings);
+        app.use(express.static(__dirname + '/client'));
+        app.use(express.static(__dirname + '/config'));
         return server;
     },
     _common: function(app, settings) {
-        var server = app.listen(settings.port || 3000, '0.0.0.0');
+        var server = app.listen(settings.port || 3000);
         app.set('view engine', 'hbs');
         app.set('views', __dirname + '/views');
         hbs.registerPartials(__dirname + '/views/partials');
@@ -48,8 +50,10 @@ db.init({
 var backend = backboneio.createBackend();
 
 backend.use(function(req, res, next) {
-    console.log(req.entity + ':' + req.id + ':' + req.method);
-    if (req.data) console.dir(req.data);
+    if (req.method !== 'update') {
+        console.log(req.entity + ':' + req.id + ':' + req.method);
+        if (req.data) console.dir(req.data);
+    }
     next();
 });
 backend.use(db.middleware.auth());

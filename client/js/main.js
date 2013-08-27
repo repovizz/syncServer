@@ -8,12 +8,10 @@ require.config({
         "json": "../vendor/requirejs-plugins/src/json",
         "text": "../vendor/requirejs-plugins/lib/text",
         "backbone": "../vendor/backbone-amd/backbone",
-        "gridster": "../vendor/jquery.gridster",
         "underscore": "../vendor/underscore-amd/underscore",
         "bootstrap": "../vendor/bootstrap/dist/js/bootstrap.js",
         "backbone.io": "../vendor/backbone.io",
         "jquery-ui": "../vendor/jquery-ui",
-        "jquery-migrate": "../vendor/jquery-migrate",
         "jquery-touch-punch": "../vendor/jquery.ui.touch-punch",
         "base64": "../vendor/base64-binary",
         "jquery-knob": "../vendor/jquery-knob/js/jquery.knob"
@@ -28,9 +26,6 @@ require.config({
         "backbone.io": {
             "deps": ["backbone", "socket.io"],
             "exports": "Backbone.io"
-        },
-        "gridster": {
-            "deps": ["jquery-migrate"]
         }
     }
 });
@@ -45,15 +40,17 @@ require(['jquery', 'underscore', 'utils/rAF'], function() {
     });
 
     // Now do all the bindings
-    require(['components/scope','stream'],
-    function(Scope,Stream) {
-        // Create some widgets
+    require(['components/scope','components/video','stream'],
+    function(Scope, Video, Stream) {
+        // Create some widgets after the page loads
         $(function() {
-            //window.w = new Widget('test', $('.container'));
-            for (var i = 1; i < 3; i++) {
-                window.stream = new Stream({id: i});
-                window.scope = new Scope(i, $('.container'), stream);
+            var stream, scope, i;
+            for (i = 1; i < 3; i++) {
+                stream = new Stream({id: i});
+                scope = new Scope(i, $('.widgets'), stream);
             }
+            window.videoFeed = new Stream({id:'videoFeed'}, {raw: true});
+            window.video = new Video('videoFeed', $('.widgets'), videoFeed);
         });
     });
 
