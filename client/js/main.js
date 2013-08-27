@@ -21,7 +21,7 @@ require.config({
             "exports": "$"
         },
         "underscore": {
-            "exports": "_"
+            "exportsvide": "_"
         },
         "backbone.io": {
             "deps": ["backbone", "socket.io"],

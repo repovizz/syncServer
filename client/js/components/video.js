@@ -6,8 +6,8 @@
  *
  */
 
-define(['components/widget'],
-function(Widget) {
+define(['components/widget','slider'],
+function(Widget, Slider) {
 
     var Video = function(id, container, stream) {
         var self = this;

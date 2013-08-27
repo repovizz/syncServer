@@ -8,10 +8,11 @@ var events = new EventEmitter();
 
 var noop = function(){};
 
-var Stream = function(id) {
+var VideoStream = function(id) {
     var self = this;
     this.id = id;
-    this.format = 'jpg';
+    this.format = 'png';
+    this.interval = 500;
     // Subscribe to parameter changes from the client
     listener.subscribe('stream:'+id+':feed');
     events.on(id + ':update', function(message) {
@@ -23,8 +24,8 @@ var Stream = function(id) {
     });
     // Create the entity in the DB
     var defaults = {
-        format: 'jpg',
-        frameRate: 2
+        format: 'png',
+        frameRate: 1
     };
     var message = {
         // little hack because we're not creating it at every run
@@ -40,14 +41,15 @@ var Stream = function(id) {
         .exec();
     // Start generating data
     this.files = fs.readdirSync('./images').map(function(name) {
-        return fs.readSync('./images/'+name);
+        return fs.readFileSync('./images/'+name);
     });
+
     this.newFrame();
 };
 
-Stream.prototype.newFrame = function() {
+VideoStream.prototype.newFrame = function() {
     var frame = this.files.pop();
-    this.files.shift(frame);
+    this.files.unshift(frame);
     client.publish('stream:'+this.id+':pipe', frame, noop);
     this.timer = setTimeout(this.newFrame.bind(this), this.interval);
 };
@@ -60,8 +62,4 @@ listener.on('message', function(channel, message) {
     }
 });
 
-new Stream(1);
-new Stream(2);
-new Stream(3);
-new Stream(4);
-new Stream(5);
+new VideoStream('videoFeed');
