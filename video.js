@@ -25,7 +25,7 @@ var VideoStream = function(id) {
     // Create the entity in the DB
     var defaults = {
         format: 'png',
-        frameRate: 1
+        frameRate: 2
     };
     var message = {
         // little hack because we're not creating it at every run

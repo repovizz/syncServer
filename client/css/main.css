@@ -1,32 +1,65 @@
+/* Make sure we work fullscreen and without scrollbars */
+
 html, body {
     margin: 0;
     width: 100%;
     height: 100%;
 }
 
-.scope {
-	background-color: #000!important;
-}
+/* Global snippets */
 
 .expand {
 	position: absolute;
-    width:100%;
+    width: 100%;
     height: 100%;
-    padding:0;
-    border-width:0;
+    padding: 0;
+    border-width: 0;
     top: 0;
-    right: 0;
+    left: 0;
 }
 
-.scopeKnobs {
+/***************
+ *
+ * WIDGETS
+ *
+ ****************/
+
+/* Scope */
+
+.scope {
+    background-color: #000!important;
+}
+
+.scope > .knobs {
     width: 150px;
 }
 
-.scopeKnobs > .slider {
+.scope > .knobs > .slider {
     margin-top: 10px;
     margin-bottom: 40px;
 }
 
+/* Video */
+
+.video img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    padding-top: 50px;
+    bottom: 0;
+    left: 0;
+}
+
+/***************
+ *
+ * COMPONENTS
+ *
+ ****************/
+
+/* Slider */
+
 .slider > .title {
     margin-top: 14px;
 }
+

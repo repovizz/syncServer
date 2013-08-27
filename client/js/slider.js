@@ -10,8 +10,8 @@ define(['jquery-ui'], function() {
 
 	function Slider(key, model, options, container) {
 		var self = this;
-		var setter = function(foo,value){
-			self.$el.slider('value', value);
+		var setter = function(model,value) {
+			self.$el.slider('value', parseFloat(value));
 		};
 		this.model = model;
 		this.$el = $('<div class="slider"></div>');
@@ -26,7 +26,8 @@ define(['jquery-ui'], function() {
 			}
 		}, options));
 		this.model.on('change:'+key, setter);
-		this.$el.slider('value', this.model.get(key));
+		if (this.model.has(key)) setter(this.model.get(key));
+		else this.model.set(key, 0);
 		if (container) container.append(this.$el);
 		return this;
 	}

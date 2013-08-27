@@ -40,7 +40,7 @@ require(['jquery', 'underscore', 'utils/rAF'], function() {
     });
 
     // Now do all the bindings
-    require(['components/scope','components/video','stream'],
+    require(['components/scope','components/video','stream',],
     function(Scope, Video, Stream) {
         // Create some widgets after the page loads
         $(function() {

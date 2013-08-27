@@ -13,9 +13,16 @@ function(Widget, Slider) {
         var self = this;
         Widget.apply(this, arguments);
 
-        this.$image = $('<img class="expand"></img>');
+        this.$el.addClass('video');
+        this.$image = $('<img/>');
         this.$el.append(this.$image);
         if (stream) this.setStream(stream);
+        var slider = new Slider(
+            'frameRate',
+            this.stream,
+            {min:1, max:10},
+            this.$el
+        );
 
         return this;
     };
