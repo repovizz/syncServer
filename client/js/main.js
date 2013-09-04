@@ -1,5 +1,5 @@
 require.config({
-    "baseUrl": "js",
+    "baseUrl": "/js",
     "paths": {
         "jquery": "../vendor/jquery/jquery",
         "requirejs": "../vendor/requirejs/require",
@@ -46,11 +46,11 @@ require(['jquery', 'underscore', 'utils/rAF'], function() {
         $(function() {
             var stream, scope, i;
             for (i = 1; i < 3; i++) {
-                stream = new Stream({id: i});
-                scope = new Scope(i, $('.widgets'), stream);
+                stream = new Stream({id:i});
+                scope = new Scope(Config.sessionID+i, $('.widgets'), stream);
             }
             window.videoFeed = new Stream({id:'videoFeed'}, {raw: true});
-            window.video = new Video('videoFeed', $('.widgets'), videoFeed);
+            window.video = new Video(Config.sessionID+'videoFeed', $('.widgets'), videoFeed);
         });
     });
 

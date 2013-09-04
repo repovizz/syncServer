@@ -28,10 +28,15 @@ var init = {
         app.set('view engine', 'hbs');
         app.set('views', __dirname + '/views');
         hbs.registerPartials(__dirname + '/views/partials');
-        app.get('/', function(req,res) {
+        app.get('/s/:id', function(req,res) {
+            config.common.sessionID = req.params.id;
             res.render('main', {
                 config: JSON.stringify(config.common)
             });
+        });
+        app.get('/', function(req,res) {
+            var id = (Math.round(Math.random()*1e16)).toString(36);
+            res.redirect('/s/'+id);
         });
         app.use(express.static(__dirname + '/dist'));
         app.use(express.static(__dirname + '/public'));
@@ -80,7 +85,6 @@ backend.on('connection', function(socket) {
     backend.handle(req, res, function(){});
     // We also send it info about the session and the server
     socket.emit('init',{
-        sessionID: socket.id,
         event: 'backend'
     });
 });
