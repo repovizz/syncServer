@@ -16,27 +16,27 @@ define(['entities', 'jquery-ui'], function(Entities) {
             stack: '.widget',
             appendTo: context,
             resize: function(event,ui) {
-                model.off('change:width', setWidth, self);
-                model.off('change:height', setHeight, self);
-                model.off('change:position', setPosition, self);
+                //model.off('change:width', setWidth, self);
+                //model.off('change:height', setHeight, self);
+                //model.off('change:position', setPosition, self);
                 model.set({
                     width: ui.size.width,
                     height: ui.size.height,
                     position: JSON.stringify(ui.position)
                 });
-                model.on('change:width', setWidth, self);
-                model.on('change:height', setHeight, self);
-                model.on('change:position', setPosition, self);
+                //model.on('change:width', setWidth, self);
+                //model.on('change:height', setHeight, self);
+                //model.on('change:position', setPosition, self);
             },
             drag: function(event,ui) {
-                model.off('change:position', setPosition, self);
+                //model.off('change:position', setPosition, self);
                 model.set('position', JSON.stringify(ui.position));
-                model.on('change:position', setPosition, self);
+                //model.on('change:position', setPosition, self);
             },
             focus: function(event,ui) {
-                model.off('change:lastFocus', setLayer, self);
-                model.set('lastFocus', new Date().getTime());
-                model.on('change:lastFocus', setLayer, self);
+                //model.off('change:lastFocus', setLayer, self);
+                //model.set('lastFocus', new Date().getTime());
+                //model.on('change:lastFocus', setLayer, self);
             }
         });
 

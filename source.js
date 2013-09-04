@@ -19,8 +19,10 @@ var Stream = function(id) {
         if (!message) return;
         if (message.frameLength)
             self.frameLength = message.frameLength;
-        else if (message.frameRate)
+        if (message.frameRate)
             self.interval = (1 / message.frameRate) * 1000;
+        if (message.frequency)
+            self.frequency = message.frequency;
     });
     // Create the entity in the DB
     var defaults = {
