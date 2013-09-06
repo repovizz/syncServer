@@ -6,10 +6,7 @@
 			"source",
 			"view",
 			"session"
-		],
-		"widget": {
-			"margin": 5,
-			"size": 160
-		}
-	}
+		]
+	},
+	"title": "LabStream"
 }

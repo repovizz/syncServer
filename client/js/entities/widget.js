@@ -49,6 +49,7 @@ define(['entities', 'jquery-ui'], function(Entities) {
     };
 
     Widget.prototype.bind = function(opts) {
+        // NOT WORKING YET, BUT VERY PROMISING
 
         /* EXAMPLE: call with defaults
         this.bind({

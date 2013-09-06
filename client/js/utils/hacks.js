@@ -1,3 +1,5 @@
+// NOT BEING USED RIGHT NOW
+
 define(['socket.io'], function(io) {
 
   // Hack socket.io to make it faster

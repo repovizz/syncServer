@@ -1,3 +1,5 @@
+// THIS IS NOT OPTIMAL AT ALL. REFACTOR PENDING.
+
 define(['backbone','backbone.io'],
 function(Backbone) {
 

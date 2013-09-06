@@ -6,7 +6,7 @@
  *
  */
 
-define(['components/widget','utils/colors', 'slider'],
+define(['entities/widget','utils/colors', 'components/slider'],
 function(Widget, colors, Slider) {
 
     var Scope = function(id, container, stream) {

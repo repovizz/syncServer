@@ -1,5 +1,12 @@
-DS_Store
+# Ignore external libraries (to be installed with npm and bower)
 client/vendor
 node_modules
+
+# Ignore database dumps and binary assets for testing
+*.log
 dump.rdb
-images
+demos/images
+
+# Ignore filesystem crap
+DS_Store
+*~

@@ -6,7 +6,7 @@
  *
  */
 
-define(['components/widget','slider'],
+define(['entities/widget','components/slider'],
 function(Widget, Slider) {
 
     var Video = function(id, container, stream) {

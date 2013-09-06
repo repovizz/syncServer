@@ -3,10 +3,11 @@
  */
 
 var backboneio = require('backbone.io'),
-    config = require('./config/config.json'),
     express = require('express'),
     hbs = require('hbs'),
-    db = require('./lib/db');
+    db = require('./lib/db'),
+    config = require('./config/config'),
+    rconfig = require('./config/r');
 
 var init = {
     development: function(app) {
@@ -31,7 +32,9 @@ var init = {
         app.get('/s/:id', function(req,res) {
             config.common.sessionID = req.params.id;
             res.render('main', {
-                config: JSON.stringify(config.common)
+                config: JSON.stringify(config.common),
+                title: config.title,
+                requirejs: JSON.stringify(rconfig)
             });
         });
         app.get('/', function(req,res) {
