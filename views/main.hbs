@@ -13,7 +13,7 @@
 
         <link rel="stylesheet" href="/vendor/normalize-css/normalize.css">
         <link rel="stylesheet" href="/vendor/bootstrap/dist/css/bootstrap.css">
-        <link rel="stylesheet" href="/vendor/jquery-ui/jquery-ui.css">
+        <link rel="stylesheet" href="/vendor/jquery-ui/themes/{{theme}}/jquery-ui.css">
         <link rel="stylesheet" href="/css/main.css">
 
         {{! Bootstrap lightweight configuration without lazy-loading to speed everything up }}
@@ -31,8 +31,8 @@
 
         <div class="container">
 
-            <header class="navbar">
-                <a class="navbar-brand" href="#">{{title}}</a>
+            <header class="navbar navbar-default" role="navigation">
+                <a class="navbar-brand">{{title}}</a>
             </header>
 
             <div class="widgets"></div>

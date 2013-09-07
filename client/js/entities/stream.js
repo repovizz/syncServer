@@ -2,7 +2,7 @@
 // It listens to new frames, buffers them and dispatches animation events
 
 define(['entities','backbone', 'utils/base64-binary'],
-function(Entities, Backbone, Base64) {
+function(Entities, Backbone, Base64Binary) {
 
     var Stream = Backbone.Model.extend({
         initialize: function(attrs, opts) {
@@ -11,7 +11,7 @@ function(Entities, Backbone, Base64) {
 
             this.on('backend:frame', function(meta, frame) {
                 if (! opts.raw)
-                    frame = Base64Binary(frame);
+                    frame = Base64Binary.decode(frame);
                 this.trigger('frame', frame, meta);
             }, this);
         }

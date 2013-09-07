@@ -8,9 +8,10 @@ Installing
 
 Make sure that you have installed node.js and redis (there are plenty of tutorials online). Then:
 
+* `sudo npm install -g bower` will install the bower package manager (sudo is required for linking the binaries).
 * `npm install` will install server-side dependencies (about 100 MB).
 	* If you just want to try it out, run `npm install --production` to avoid installing optimizers and test runners (then, it's only 16 MB).
-* `node_modules/.bin/bower install` will install client-side dependencies (about 30 MB).
+* `bower install` will install client-side dependencies (about 30 MB).
 
 Running
 -------

@@ -41,6 +41,8 @@ function(Widget, colors, Slider) {
     Scope.prototype.render = function(data, meta) {
         if (!data) return;
 
+        data = new Uint8Array(data);
+
         var ctx = this.context;
         var nSamp = this.stream.get('frameLength');
         var nSig = this.stream.get('dimensions');

@@ -1,6 +1,6 @@
 #!/bin/sh
 redis-server &
-node source &
-node video &
+node demos/source &
+node demos/video &
 NODE_ENV=production node app &
 

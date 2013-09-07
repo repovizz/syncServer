@@ -34,6 +34,7 @@ var init = {
             res.render('main', {
                 config: JSON.stringify(config.common),
                 title: config.title,
+                theme: config.theme,
                 requirejs: JSON.stringify(rconfig)
             });
         });

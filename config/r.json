@@ -10,10 +10,8 @@
         "socket.io": "../vendor/socket.io-client/dist/socket.io",
         "underscore": "../vendor/underscore-amd/underscore",
         "backbone": "../vendor/backbone-amd/backbone",
-        "backbone.io": "../vendor/backbone.io",
-        "base64": "../vendor/base64-binary",
         "jquery-ui": "../vendor/jquery-ui/ui/jquery-ui",
-        "jquery-touch-punch": "../vendor/jquery-ui-touch-punch/jquery-ui-touch-punch"
+        "jquery-touch-punch": "../vendor/jquery-ui-touch-punch/jquery.ui.touch-punch"
     },
     "shim": {
         "jquery": {

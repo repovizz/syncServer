@@ -8,5 +8,6 @@
 			"session"
 		]
 	},
-	"title": "LabStream"
+	"title": "LabStream",
+	"theme": "ui-lightness"
 }
