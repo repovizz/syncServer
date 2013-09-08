@@ -16,6 +16,7 @@ Make sure that you have installed node.js and redis (there are plenty of tutoria
 Running
 -------
 
+* `redis-server` will start Redis.
 * `node app` will start serving the app. Check the configuration files for fine-tuning.
 * `node demos/source` will start the fake signal generator.
 * `node demos/video` will start the fake video generator.
