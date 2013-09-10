@@ -1,6 +1,6 @@
 // Load globally available modules before starting
 // Loading touch-punch will already load jquery-ui and jquery
-require(['jquery-touch-punch', 'underscore', 'utils/rAF'], function() {
+require(['jquery-touch-punch', 'bootstrap', 'underscore', 'utils/rAF'], function() {
 
     // Now do all the bindings
     require(['components/scope','components/video','entities/stream'],

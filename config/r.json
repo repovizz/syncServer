@@ -6,7 +6,7 @@
         "json": "../vendor/requirejs-plugins/src/json",
         "text": "../vendor/requirejs-plugins/lib/text",
         "jquery": "../vendor/jquery/jquery",
-        "bootstrap": "../vendor/bootstrap/dist/js/bootstrap.js",
+        "bootstrap": "../vendor/bootstrap/dist/js/bootstrap",
         "socket.io": "../vendor/socket.io-client/dist/socket.io",
         "underscore": "../vendor/underscore-amd/underscore",
         "backbone": "../vendor/backbone-amd/backbone",
@@ -14,22 +14,12 @@
         "jquery-touch-punch": "../vendor/jquery-ui-touch-punch/jquery.ui.touch-punch"
     },
     "shim": {
-        "jquery": {
-            "exports": "$"
-        },
-        "underscore": {
-            "exports": "_"
-        },
-        "jquery-ui": {
-            "deps": ["jquery"]
-        },
-        "jquery-touch-punch": {
-            "deps": ["jquery-ui"]
-        },
-        "backbone.io": {
-            "deps": ["backbone", "socket.io"],
-            "exports": "Backbone.io"
-        }
+        "jquery":      { "exports": "$" },
+        "underscore":  { "exports": "_" },
+        "bootstrap":          { "deps": ["jquery"] },
+        "jquery-ui":          { "deps": ["jquery"] },
+        "jquery-touch-punch": { "deps": ["jquery-ui"] },
+        "backbone.io":        { "deps": ["backbone", "socket.io"] }
     },
     "deps": ["main"]
 }
