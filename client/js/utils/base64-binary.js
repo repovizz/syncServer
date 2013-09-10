@@ -32,19 +32,15 @@
             if (!window.btoa)
                 return manual_encode(buffer);
             var view = new Uint8Array(buffer);
-            var len = view.length;
-            var binary = "";
-            for (var i = 0; i < len; i++) {
-                binary = binary + String.fromCharCode(view[i]);
-            }
+            var binary = String.fromCharCode.apply(view,null);
             var base64 = window.btoa(binary);
             return base64;
         }
 
     };
 
-    // Fallbacks for old browsers
 
+    // Fallbacks for old browsers
 
     var keyStr =
         "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
@@ -53,8 +49,8 @@
     var manual_decode = function(input) {
 
         //get last chars to see if are valid
-        var lkey1 = _keyStr.indexOf(input.charAt(input.length-1));
-        var lkey2 = _keyStr.indexOf(input.charAt(input.length-2));
+        var lkey1 = keyStr.indexOf(input.charAt(input.length-1));
+        var lkey2 = keyStr.indexOf(input.charAt(input.length-2));
 
         var bytes = (input.length/4) * 3;
         if (lkey1 == 64) bytes--; //padding chars, so skip
@@ -66,17 +62,17 @@
         var i = 0;
         var j = 0;
 
-        buffer = new ArrayBUffer(bytes);
+        buffer = new ArrayBuffer(bytes);
         uarray = new Uint8Array(buffer);
 
         input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
 
         for (i=0; i<bytes; i+=3) {
             //get the 3 octects in 4 ascii chars
-            enc1 = _keyStr.indexOf(input.charAt(j++));
-            enc2 = _keyStr.indexOf(input.charAt(j++));
-            enc3 = _keyStr.indexOf(input.charAt(j++));
-            enc4 = _keyStr.indexOf(input.charAt(j++));
+            enc1 = keyStr.indexOf(input.charAt(j++));
+            enc2 = keyStr.indexOf(input.charAt(j++));
+            enc3 = keyStr.indexOf(input.charAt(j++));
+            enc4 = keyStr.indexOf(input.charAt(j++));
 
             chr1 = (enc1 << 2) | (enc2 >> 4);
             chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
@@ -91,12 +87,26 @@
     };
 
 
-    var manual_encode = function(buffer) {
+    var manual_encode = function(arraybuffer) {
 
-        return "";
+        var bytes = new Uint8Array(arraybuffer),
+        i, len = bytes.buffer.byteLength, base64 = "";
 
+        for (i = 0; i < len; i+=3) {
+          base64 += keyStr[bytes.buffer[i] >> 2];
+          base64 += keyStr[((bytes.buffer[i] & 3) << 4) | (bytes.buffer[i + 1] >> 4)];
+          base64 += keyStr[((bytes.buffer[i + 1] & 15) << 2) | (bytes.buffer[i + 2] >> 6)];
+          base64 += keyStr[bytes.buffer[i + 2] & 63];
+        }
+
+        if ((len % 3) === 2) {
+          base64 = base64.substring(0, base64.length - 1) + "=";
+        } else if (len % 3 === 1) {
+          base64 = base64.substring(0, base64.length - 2) + "==";
+        }
+
+        return base64;
     };
-
 
     return Base64Binary;
 
