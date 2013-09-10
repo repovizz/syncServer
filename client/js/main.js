@@ -17,7 +17,7 @@ require(['jquery-touch-punch', 'underscore', 'utils/rAF'], function() {
         });
     });
 
-    // Expose some modules for easy hacking on-the-fly
+    // Expose some modules for easy on-the-fly hacking
     require(['utils/globalize'], function() {
         globalize('entities');
         globalize('entities/widget');

@@ -40,8 +40,8 @@ var VideoStream = function(id) {
         .publish('stream:'+id+':feed', JSON.stringify(message))
         .exec();
     // Start generating data
-    this.files = fs.readdirSync('./images').map(function(name) {
-        return fs.readFileSync('./images/'+name);
+    this.files = fs.readdirSync(__dirname+'/images').map(function(name) {
+        return fs.readFileSync(__dirname+'/images/'+name);
     });
 
     this.newFrame();
