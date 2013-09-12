@@ -1,7 +1,7 @@
 // THIS IS NO LONGER USED BECAUSE GRIDSTER WAS BUGGY
 // I'LL LEAVE IT FOR A FEW COMMITS IN CASE I TRY TO FIX IT
 
-define(['promise','jquery-ui','gridster'], function(Promise) {
+define(['utils/promise','jquery-ui','gridster'], function(Promise) {
 
     var Grid = new Promise([
         'serialize','add_widget','remove_widget','resize_widget',
