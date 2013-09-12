@@ -16,31 +16,36 @@
     var Base64Binary = {
 
         decode: function(base64) {
-            if (!window.atob)
+            try {
+                var binary = window.atob(base64);
+                var len = binary.length;
+                var buffer = new ArrayBuffer(len);
+                var view = new Uint8Array(buffer);
+                while (--len) {
+                    view[len] = binary.charCodeAt(len);
+                }
+                return buffer;
+            } catch (err) {
                 return manual_decode(input);
-            var binary = window.atob(base64);
-            var len = binary.length;
-            var buffer = new ArrayBuffer(len);
-            var view = new Uint8Array(buffer);
-            while (--len) {
-                view[len] = binary.charCodeAt(len);
             }
-            return buffer;
         },
 
         encode: function(buffer) {
-            if (!window.btoa)
+            try {
+                if (!window.btoa) throw "no native method"; // fail early
+                var view = new Uint8Array(buffer);
+                var binary = String.fromCharCode.apply(view,null);
+                var base64 = window.btoa(binary);
+                return base64;
+            } catch (err) {
                 return manual_encode(buffer);
-            var view = new Uint8Array(buffer);
-            var binary = String.fromCharCode.apply(view,null);
-            var base64 = window.btoa(binary);
-            return base64;
+            }
         }
 
     };
 
 
-    // Fallbacks for old browsers
+    // Fallbacks for old browsers and firefox
 
     var keyStr =
         "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
