@@ -26,7 +26,7 @@
                 }
                 return buffer;
             } catch (err) {
-                return manual_decode(input);
+                return manual_decode(base64);
             }
         },
 
