@@ -27,6 +27,9 @@ function(Widget, Slider) {
         return this;
     };
 
+    // Inherit methods from Widget
+    _.extend(Video.prototype, Widget.prototype);
+
     Video.prototype.render = function(data, meta) {
         if (!data) return;
         var format = this.stream.get('format');

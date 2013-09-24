@@ -38,6 +38,9 @@ function(Widget, colors, Slider) {
         return this;
     };
 
+    // Inherit methods from Widget
+    _.extend(Scope.prototype, Widget.prototype);
+
     Scope.prototype.render = function(data, meta) {
         if (!data) return;
 

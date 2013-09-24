@@ -44,8 +44,15 @@ define(['entities', 'jquery-ui'], function(Entities) {
         model.on('change:width', setWidth, this);
         model.on('change:height', setHeight, this);
         model.on('change:lastFocus', setLayer, this);
+        model.on('change:title', setTitle, this);
 
         return this;
+    };
+
+    // Syntatic sugar for getting/setting the title
+    Widget.prototype.title = function(title) {
+        if (!title) return this.model.get('title');
+        this.model.set('title', title);
     };
 
     Widget.prototype.bind = function(opts) {
@@ -89,6 +96,7 @@ define(['entities', 'jquery-ui'], function(Entities) {
 
     };
 
+
     // Private methods defined only once
 
     var setPosition = function(model, position) {
@@ -106,6 +114,10 @@ define(['entities', 'jquery-ui'], function(Entities) {
 
     var setLayer = function(model, index) {
         this.$el.dialog('moveToTop');
+    };
+
+    var setTitle = function(model, title) {
+        this.$el.dialog('option', 'title', title);
     };
 
     return Widget;

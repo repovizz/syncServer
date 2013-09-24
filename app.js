@@ -70,26 +70,28 @@ backend.use(db.middleware.store());
 backend.use(backboneio.middleware.channel());
 
 backend.on('connection', function(socket) {
-    // When a user connects, we force the creation of a session for it
-    var req = {
-        socket: socket,
-        method: 'create',
-        entity: 'session',
-        backend: backend,
-        id: socket.id
-    };
-    var res = {
-        end: function(data) {
-            socket.emit('msg',data);
-        },
-        error: function(err) {
-            console.log(err);
-        }
-    };
-    backend.handle(req, res, function(){});
-    // We also send it info about the session and the server
+    // Send it info about the session and the server
     socket.emit('init',{
         event: 'backend'
+    }, function(id) {
+        // When a user connects, we force the creation of a session for it
+        // Here we should bootstrap it with sources or something
+        // var req = {
+        //     socket: socket,
+        //     method: 'create',
+        //     entity: 'session',
+        //     backend: backend,
+        //     id: id
+        // };
+        // var res = {
+        //     end: function(data) {
+        //         socket.emit('msg',data);
+        //     },
+        //     error: function(err) {
+        //         console.log(err);
+        //     }
+        // };
+        // backend.handle(req, res, function(){});
     });
 });
 
