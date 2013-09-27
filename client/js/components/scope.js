@@ -25,7 +25,7 @@ function(Widget, colors, Slider) {
 
         var knobs = $('<div class="knobs"></div>');
         var rate = new Slider('frameRate', this.stream, {min:3,max:60,width:100}, knobs);
-        var len = new Slider('frameLength', this.stream, {min:16,max:256,width:100}, knobs);
+        var len = new Slider('frameLength', this.stream, {min:16,max:512,width:100}, knobs);
         this.$el.append(knobs);
 
         var resize = function(value) {

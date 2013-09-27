@@ -21,12 +21,13 @@ function(Widget) {
 
         var that = this;
         this.stream.on('change:address', function(foo, add) {
-            that.$input.val(add.toString(16));
+            that.$input.val(add);
         });
 
         this.$input.change(function(ev) {
-            ev.preventDefault();
-            that.stream.set('address', parseInt(that.$input.val(), 16));
+            var add = that.$input.val();
+            if (add == that.stream.get('address')) return;
+            that.stream.set('address', add);
         });
 
         return this;
