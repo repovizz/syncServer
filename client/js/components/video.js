@@ -1,7 +1,7 @@
 /* JavaScript Class Definition
  *
  * Name: Video
- * Dependencies: Widget
+ * Dependencies: Widget, Slider
  * Descriptions: Displays images as they arrive as frames
  *
  */

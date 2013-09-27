@@ -1,7 +1,7 @@
 /* JavaScript Class Definition
  *
  * Name: Scope
- * Dependencies: Widget
+ * Dependencies: Widget, Slider
  * Descriptions: Oscilloscope-like display of unidimensional streams
  *
  */
@@ -25,7 +25,7 @@ function(Widget, colors, Slider) {
 
         var knobs = $('<div class="knobs"></div>');
         var rate = new Slider('frameRate', this.stream, {min:3,max:60,width:100}, knobs);
-        var len = new Slider('frameLength', this.stream, {min:16,max:128,width:100}, knobs);
+        var len = new Slider('frameLength', this.stream, {min:16,max:1024,width:100}, knobs);
         this.$el.append(knobs);
 
         var resize = function(value) {
