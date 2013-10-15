@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "repository": {
     "type": "git",
-    "url": "git@atg.lbl.gov:repovizz/framework.git"
+    "url": "https://github.com/repovizz/frontend"
   },
   "private": true,
   "dependencies": {

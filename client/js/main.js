@@ -28,12 +28,6 @@ require(['jquery-touch-punch', 'bootstrap', 'underscore', 'utils/rAF'], function
             window.cScope = new Scope(Config.sessionID+'c', $('.widgets'), cStream);
             cScope.title('Look ma, no javascript!');
 
-            window.fpgaStream = new Stream({id:'fpga'});
-            window.fpgaScope = new Scope(Config.sessionID+'fpga', $('.widgets'), fpgaStream);
-            window.fpgaAddress = new Address(Config.sessionID+'fpgaAdd', $('.widgets'), fpgaStream);
-            fpgaAddress.title('FPGA Address');
-            fpgaScope.title('FPGA (!!!!)');
-
         });
     });
 
