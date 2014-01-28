@@ -3,8 +3,8 @@
 require(['jquery-touch-punch', 'bootstrap', 'underscore', 'utils/rAF'], function() {
 
     // Now do all the bindings
-    require(['components/scope','components/video', 'components/address', 'entities/stream'],
-    function(Scope, Video, Address, Stream) {
+    require(['components/scope','components/video', 'entities/stream'],
+    function(Scope, Video, Stream) {
 
         // Create some widgets after the page loads
         $(function() {
