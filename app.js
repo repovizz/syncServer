@@ -26,6 +26,7 @@ var init = {
     },
     _common: function(app, settings) {
         var server = app.listen(settings.port || 3000);
+        /*
         app.set('view engine', 'hbs');
         app.set('views', __dirname + '/views');
         hbs.registerPartials(__dirname + '/views/partials');
@@ -44,6 +45,7 @@ var init = {
         });
         app.use(express.static(__dirname + '/dist'));
         app.use(express.static(__dirname + '/public'));
+        */
         return server;
     }
 };
