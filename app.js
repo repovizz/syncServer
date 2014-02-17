@@ -98,7 +98,7 @@ backend.on('connection', function(socket) {
 });
 
 // Start the websockets server
-var io = backboneio.listen(
+backboneio.listen(
     server,
     {entities: backend},
     {
