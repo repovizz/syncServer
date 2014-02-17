@@ -103,7 +103,6 @@ var io = backboneio.listen(
     {entities: backend},
     {
         static: false,
-        transports: ['xhr-polling', 'htmlfile', 'jsonp-polling'],
         'log level': 2,
         resource: '/sync/socket.io'
     }
