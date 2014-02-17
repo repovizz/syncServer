@@ -101,9 +101,13 @@ backend.on('connection', function(socket) {
 var io = backboneio.listen(
     server,
     {entities: backend},
-    {static: false}
+    {
+        static: false,
+        transports: ['xhr-polling', 'htmlfile', 'jsonp-polling'],
+        'log level': 2,
+        resource: '/sync/socket.io'
+    }
 );
-io.set('log level',2);
 
 // Send updates on the database to the clients
 
